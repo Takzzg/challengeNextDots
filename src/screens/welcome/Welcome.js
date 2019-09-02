@@ -21,16 +21,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const Welcome = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome</Text>
-      <View style={styles.spacing} />
-      <TouchableOpacity onPress={() => goToPage(HOME)} style={styles.button}>
-        <Text style={styles.buttonText}>Go to home ahreloco</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+class Welcome extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Welcome</Text>
+        <View style={styles.spacing} />
+        <TouchableOpacity onPress={() => goToPage(HOME)} style={styles.button}>
+          <Text style={styles.buttonText}>Go to home ahreloco</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 export default Welcome;

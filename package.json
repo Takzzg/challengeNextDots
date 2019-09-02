@@ -10,16 +10,26 @@
     "and": "react-native run-android"
   },
   "dependencies": {
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-react-native": "^3.7.0",
     "react": "16.8.3",
     "react-native": "0.59.9",
     "react-native-gesture-handler": "^1.4.1",
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^1.5.1",
-    "redux": "^4.0.4"
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.5.5",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-native": "^4.0.1",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.1.0",

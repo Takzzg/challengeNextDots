@@ -1,9 +1,23 @@
 {
   "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
     "airbnb",
     "prettier",
     "prettier/react"
   ],
+  "env": {
+    "react-native/react-native": true
+  },
+  "plugins": [
+    "react",
+    "react-native",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "globals": {
+    "_DEV_": "readonly"
+  },
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -16,6 +30,10 @@
     ],
     "react/prefer-stateless-function": 0,
     "no-use-before-define": 0,
+    "no-async-promise-executor": 0,
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0,
+    "no-nested-ternary": 0,
     "prettier/prettier": [
       "error",
       {
@@ -25,8 +43,5 @@
         "semi": true
       }
     ]
-  },
-  "plugins": [
-    "prettier"
-  ]
+  }
 }
