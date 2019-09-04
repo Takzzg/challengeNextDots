@@ -12,15 +12,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class Welcome extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Welcome</Text>
-        <Button onPress={() => goToPage(HOME)} text="Go to home" />
-      </View>
-    );
-  }
+const Welcome = () => {
+  return (
+    <View style={styles.container} >
+      <Text>Welcome</Text>
+      <Button onPress={() => goToPage(HOME)} text="Go to home" />
+    </View>
+  );
 }
 
 export default Welcome;

@@ -9,6 +9,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });
 
 class Home extends React.Component {
@@ -21,7 +25,7 @@ class Home extends React.Component {
     } = this.props;
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.center} >
         <Text>Home</Text>
         <Button onPress={() => goBack()} text="Go back" />
 
