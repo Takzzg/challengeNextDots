@@ -1,29 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import { goBack } from '../../navigation/Navigation';
 import { fetchCocktails } from '../../actions/cocktails';
+import Button from '../../components/Button';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  button: {
-    padding: 20,
-    backgroundColor: '#00000070',
-  },
-  buttonText: {
-    color: 'white',
-  },
-  spacing: {
-    height: 10,
   },
 });
 
@@ -39,22 +23,13 @@ class Home extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Text>Home</Text>
-        <View style={styles.spacing} />
-        <TouchableOpacity onPress={() => goBack()} style={styles.button}>
-          <Text style={styles.buttonText}>Go back ahrecrazy</Text>
-        </TouchableOpacity>
-
-        <View style={styles.spacing} />
+        <Button onPress={() => goBack()} text="Go back" />
 
         {fetchCocktailsIsLoading ? (
           <ActivityIndicator color="black" size="large" />
         ) : (
-          <TouchableOpacity onPress={fetchCocktailsConnected} style={styles.button}>
-            <Text style={styles.buttonText}>Fetch cocktails</Text>
-          </TouchableOpacity>
+          <Button onPress={fetchCocktailsConnected} text="Fetch cocktails" />
         )}
-
-        <View style={styles.spacing} />
 
         {cocktails ? <Text>{JSON.stringify(cocktails, null, 2)}</Text> : null}
         {fetchCocktailsError ? (
