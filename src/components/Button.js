@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -17,9 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Button(props) {
-  const { buttonStyle, text, onPress, textStyle } = props;
-
+const Button = ({ buttonStyle, text, onPress, textStyle }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={{ ...styles.button, ...buttonStyle }} onPress={onPress}>
@@ -27,6 +26,17 @@ function Button(props) {
       </TouchableOpacity>
     </View>
   );
+}
+
+Button.propTypes = {
+  text: PropTypes.string,
+  onPress: PropTypes.func.isRequired,
+  buttonStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  textStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+}
+
+Button.defaultProps = {
+  text: 'Boton'
 }
 
 export default Button;
