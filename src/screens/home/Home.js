@@ -1,22 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Text,
-  ScrollView,
-  StyleSheet,
-  // ActivityIndicator,
-  View,
-} from 'react-native';
+import { Text, ScrollView, StyleSheet, ActivityIndicator, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { goBack } from '../../navigation/Navigation';
 import { fetchCocktails } from '../../actions/cocktails';
 import Button from '../../components/Button/Button';
 import MyTextInput from '../../components/MyTextInput/MyTextInput';
+import Card from '../../components/Card/Card';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 25,
+  },
+  scrollViewContainer: {
+    flex: 1,
+    padding: 15,
   },
   center: {
     alignItems: 'center',
@@ -93,8 +92,19 @@ class Home extends React.Component {
           ) : null}
         </View>
 
-        <ScrollView style={styles.container} contentContainerStyle={styles.center}>
+        <ScrollView style={styles.scrollViewContainer} contentContainerStyle={styles.center}>
           <Text>asd</Text>
+          <Card cocktailName="asd" cocktailImage="https://picsum.photos/id/1005/5760/3840" />
+          {fetchCocktailsIsLoading ? (
+            <ActivityIndicator color="black" size="large" />
+          ) : (
+            <Button onPress={fetchCocktailsConnected} text="Fetch cocktails" />
+          )}
+
+          {cocktails ? <Text>{JSON.stringify(cocktails, null, 2)}</Text> : null}
+          {fetchCocktailsError ? (
+            <Text style={{ color: 'red' }}>{JSON.stringify(fetchCocktailsError, null, 2)}</Text>
+          ) : null}
         </ScrollView>
       </LinearGradient>
 
