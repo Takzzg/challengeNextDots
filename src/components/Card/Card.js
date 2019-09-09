@@ -3,14 +3,6 @@ import { View, Text, Image } from 'react-native';
 import styles from './styles';
 
 class Card extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cocktailImage: '',
-      cocktailName: '',
-    };
-  }
-
   render() {
     const { cocktailImage, cocktailName } = this.props;
     return (

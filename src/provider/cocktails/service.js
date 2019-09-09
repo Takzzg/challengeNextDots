@@ -1,9 +1,9 @@
 import CocktailsConfig from './config';
 
 export default class CocktailsService {
-  static fetchCocktails() {
+  static fetchCocktails(name) {
     return new Promise((resolve, reject) => {
-      const endpoint = CocktailsConfig.random;
+      const endpoint = CocktailsConfig.byName(name);
       fetch(endpoint)
         .then(response => {
           if (!response.ok) reject(response);
