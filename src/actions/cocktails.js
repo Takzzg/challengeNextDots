@@ -1,7 +1,5 @@
 import { createAction } from 'redux-actions';
-
 import { FETCH_COCKTAILS_START, FETCH_COCKTAILS_SUCCESS, FETCH_COCKTAILS_ERROR } from './types';
-
 import CocktailsService from '../provider/cocktails/service';
 
 export const fetchCocktailsStart = createAction(FETCH_COCKTAILS_START);
