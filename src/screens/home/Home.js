@@ -4,9 +4,7 @@ import { Text, ScrollView, ActivityIndicator, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { goBack } from '../../navigation/Navigation';
 import { fetchCocktails } from '../../actions/cocktails';
-import Button from '../../components/Button/Button';
-import MyTextInput from '../../components/MyTextInput/MyTextInput';
-import Card from '../../components/Card/Card';
+import { Button, MyTextInput, Card } from '../../components';
 import styles from './styles';
 
 class Home extends React.Component {

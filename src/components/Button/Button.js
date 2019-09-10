@@ -12,22 +12,20 @@ const Button = ({
   containerStyle,
   textContainerStyle,
   icon: { iconName = '', iconSize = 25, iconColor = 'black' },
-}) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={{ ...styles.container, ...containerStyle }}>
-      {iconName ? (
-        <View style={{ ...styles.icon, ...iconStyle }}>
-          <FontistoIcon size={iconSize} name={iconName} color={iconColor} />
-        </View>
-      ) : null}
-      {text ? (
-        <View style={{ ...styles.textContainer, ...textContainerStyle }}>
-          <Text style={textStyle}>{text}</Text>
-        </View>
-      ) : null}
-    </TouchableOpacity>
-  );
-};
+}) => (
+  <TouchableOpacity onPress={onPress} style={{ ...styles.container, ...containerStyle }}>
+    {iconName ? (
+      <View style={{ ...styles.icon, ...iconStyle }}>
+        <FontistoIcon size={iconSize} name={iconName} color={iconColor} />
+      </View>
+    ) : null}
+    {text ? (
+      <View style={{ ...styles.textContainer, ...textContainerStyle }}>
+        <Text style={textStyle}>{text}</Text>
+      </View>
+    ) : null}
+  </TouchableOpacity>
+);
 
 Button.propTypes = {
   text: PropTypes.string,

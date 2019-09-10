@@ -1,32 +1,11 @@
 import React from 'react';
-import { Text, StyleSheet, StatusBar, View } from 'react-native';
+import { Text, StatusBar, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { goToPage } from '../../navigation/Navigation';
 import { HOME } from '../../navigation/allRoutes';
-import Button from '../../components/Button/Button';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 15,
-  },
-  textContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 25,
-  },
-  innerText: {
-    fontWeight: 'bold',
-    fontSize: 25,
-  },
-});
+import { Button } from '../../components';
+import styles from './styles';
 
 class Welcome extends React.Component {
   render() {
