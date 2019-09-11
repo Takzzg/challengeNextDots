@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   center: {
     alignItems: 'center',

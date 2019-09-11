@@ -68,39 +68,25 @@ class Home extends React.Component {
         </View>
 
         <ScrollView style={styles.scrollViewContainer} contentContainerStyle={styles.center}>
-          {fetchCocktailsIsLoading ? (
-            <ActivityIndicator color="black" size="large" />
-          ) : cocktails ? (
-            cocktails.drinks.map(cocktail => (
-              <Card
-                cocktailName={cocktail.strDrink}
-                cocktailImage={cocktail.strDrinkThumb}
-                key={cocktail.idDrink}
-              />
-            ))
-          ) : null}
+          {fetchCocktailsIsLoading ? <ActivityIndicator color="black" size="large" /> : null}
+
+          {cocktails && inputText.length >= 3 && cocktails.drinks != null
+            ? cocktails.drinks.map(cocktail => (
+                <Card
+                  cocktailName={cocktail.strDrink}
+                  cocktailImage={cocktail.strDrinkThumb}
+                  key={cocktail.idDrink}
+                />
+              ))
+            : null}
+
+          <View style={{ margin: 5 }} />
 
           {fetchCocktailsError ? (
             <Text style={{ color: 'red' }}>{JSON.stringify(fetchCocktailsError, null, 2)}</Text>
           ) : null}
         </ScrollView>
       </LinearGradient>
-
-      // <ScrollView style={styles.container} contentContainerStyle={styles.center}>
-      //   <Text>Home</Text>
-      //   <Button onPress={() => goBack()} text="Go back" />
-
-      //   {fetchCocktailsIsLoading ? (
-      //     <ActivityIndicator color="black" size="large" />
-      //   ) : (
-      //     <Button onPress={fetchCocktailsConnected} text="Fetch cocktails" />
-      //   )}
-
-      //   {cocktails ? <Text>{JSON.stringify(cocktails, null, 2)}</Text> : null}
-      //   {fetchCocktailsError ? (
-      //     <Text style={{ color: 'red' }}>{JSON.stringify(fetchCocktailsError, null, 2)}</Text>
-      //   ) : null}
-      // </ScrollView>
     );
   }
 }
