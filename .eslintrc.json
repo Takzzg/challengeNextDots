@@ -29,6 +29,7 @@
       }
     ],
     "react/prefer-stateless-function": 0,
+    "react/jsx-props-no-spreading": 0,
     "no-use-before-define": 0,
     "no-async-promise-executor": 0,
     "import/prefer-default-export": 0,

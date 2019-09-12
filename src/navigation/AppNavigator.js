@@ -10,10 +10,10 @@ const navigationOptions = {
 
 export default createAppContainer(
   createStackNavigator({
-    // [WELCOME]: {
-    //   screen: Welcome,
-    //   ...navigationOptions,
-    // },
+    [WELCOME]: {
+      screen: Welcome,
+      ...navigationOptions,
+    },
     [HOME]: {
       screen: Home,
       ...navigationOptions,

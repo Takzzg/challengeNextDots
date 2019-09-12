@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Text, ScrollView, ActivityIndicator, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import CustomGradient from '../../components/CustomGradient';
 import { goBack } from '../../navigation/Navigation';
-import { fetchCocktails } from '../../actions/cocktails';
-import Button from '../../components/Button/Button';
-import MyTextInput from '../../components/MyTextInput/MyTextInput';
-import Card from '../../components/Card/Card';
+import { fetchCocktails, cleanCocktailsHandler } from '../../actions/cocktails';
+import { Button, MyTextInput, Card } from '../../components';
 import styles from './styles';
 
 class Home extends React.Component {
@@ -14,6 +12,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       inputText: '',
+      localLoading: false,
     };
   }
 
@@ -23,12 +22,22 @@ class Home extends React.Component {
       fetchCocktailsError,
       fetchCocktailsIsLoading,
       fetchCocktailsConnected,
+      cleanCocktailsConnected,
     } = this.props;
-    const { inputText } = this.state;
+    const { inputText, localLoading } = this.state;
 
     const changeTextHandler = newText => {
-      if (newText.length >= 3) fetchCocktailsConnected(newText);
-      this.setState({ inputText: newText });
+      let fetchCocktailsHandler;
+      this.setState({ inputText: newText, localLoading: true }, () => {
+        clearTimeout(fetchCocktailsHandler);
+        cleanCocktailsConnected();
+        if (newText.length >= 3)
+          fetchCocktailsHandler = setTimeout(() => {
+            fetchCocktailsConnected(newText);
+            this.setState({ localLoading: false });
+          }, 2000);
+        else this.setState({ localLoading: false });
+      });
     };
 
     const cancelButtonHandler = () => {
@@ -36,12 +45,7 @@ class Home extends React.Component {
     };
 
     return (
-      <LinearGradient
-        style={styles.container}
-        colors={['#ff3300', '#ff1ac6']}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 0 }}
-      >
+      <CustomGradient style={styles.container}>
         <View style={styles.searchContainer}>
           {!inputText.length > 0 ? (
             <Button
@@ -57,6 +61,7 @@ class Home extends React.Component {
             containerStyle={styles.TextInput}
             placeholder="Search"
             icon
+            // returnKeyType="search"
           />
 
           {inputText.length > 0 ? (
@@ -64,15 +69,15 @@ class Home extends React.Component {
               onPress={cancelButtonHandler}
               text="Cancel"
               textStyle={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}
-              containerStyle={styles.cancelButton}
+              onEndEditing={styles.cancelButton}
             />
           ) : null}
         </View>
 
         <ScrollView style={styles.scrollViewContainer} contentContainerStyle={styles.center}>
-          {fetchCocktailsIsLoading ? (
+          {fetchCocktailsIsLoading || localLoading ? (
             <ActivityIndicator color="black" size="large" />
-          ) : cocktails ? (
+          ) : cocktails && cocktails.drinks !== null && inputText ? (
             cocktails.drinks.map(cocktail => (
               <Card
                 cocktailName={cocktail.strDrink}
@@ -80,29 +85,19 @@ class Home extends React.Component {
                 key={cocktail.idDrink}
               />
             ))
-          ) : null}
+          ) : inputText.length > 0 ? (
+            <Text style={styles.noResults}>No results found</Text>
+          ) : (
+            <Text style={styles.noResults}>Start typing</Text>
+          )}
+
+          <View style={{ margin: 5 }} />
 
           {fetchCocktailsError ? (
             <Text style={{ color: 'red' }}>{JSON.stringify(fetchCocktailsError, null, 2)}</Text>
           ) : null}
         </ScrollView>
-      </LinearGradient>
-
-      // <ScrollView style={styles.container} contentContainerStyle={styles.center}>
-      //   <Text>Home</Text>
-      //   <Button onPress={() => goBack()} text="Go back" />
-
-      //   {fetchCocktailsIsLoading ? (
-      //     <ActivityIndicator color="black" size="large" />
-      //   ) : (
-      //     <Button onPress={fetchCocktailsConnected} text="Fetch cocktails" />
-      //   )}
-
-      //   {cocktails ? <Text>{JSON.stringify(cocktails, null, 2)}</Text> : null}
-      //   {fetchCocktailsError ? (
-      //     <Text style={{ color: 'red' }}>{JSON.stringify(fetchCocktailsError, null, 2)}</Text>
-      //   ) : null}
-      // </ScrollView>
+      </CustomGradient>
     );
   }
 }
@@ -115,6 +110,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCocktailsConnected: name => dispatch(fetchCocktails(name)),
+  cleanCocktailsConnected: () => dispatch(cleanCocktailsHandler()),
 });
 
 export default connect(

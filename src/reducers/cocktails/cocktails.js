@@ -3,6 +3,7 @@ import {
   fetchCocktailsStart,
   fetchCocktailsSuccess,
   fetchCocktailsError,
+  cleanCocktails,
 } from '../../actions/cocktails';
 
 const CocktailsInitialState = {
@@ -27,6 +28,10 @@ export default handleActions(
       ...state,
       fetchCocktailsError: action.payload,
       fetchCocktailsIsLoading: false,
+    }),
+    [cleanCocktails]: state => ({
+      ...state,
+      cocktails: null,
     }),
   },
   CocktailsInitialState,

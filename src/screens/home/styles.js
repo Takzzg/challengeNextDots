@@ -2,12 +2,12 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 25,
   },
   scrollViewContainer: {
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   center: {
     alignItems: 'center',
@@ -22,6 +22,17 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     margin: 5,
+  },
+  noResults: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'rgba(0,0,0,0.4)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    borderRadius: 10,
+    padding: 10,
+    textAlign: 'center',
+    margin: 5,
+    alignSelf: 'center',
   },
 });
 
