@@ -77,7 +77,7 @@ class Home extends React.Component {
         <ScrollView style={styles.scrollViewContainer} contentContainerStyle={styles.center}>
           {fetchCocktailsIsLoading || localLoading ? (
             <ActivityIndicator color="black" size="large" />
-          ) : cocktails && cocktails.drinks !== null ? (
+          ) : cocktails && cocktails.drinks !== null && inputText ? (
             cocktails.drinks.map(cocktail => (
               <Card
                 cocktailName={cocktail.strDrink}
@@ -85,7 +85,11 @@ class Home extends React.Component {
                 key={cocktail.idDrink}
               />
             ))
-          ) : null}
+          ) : inputText.length > 0 ? (
+            <Text style={styles.noResults}>No results found</Text>
+          ) : (
+            <Text style={styles.noResults}>Start typing</Text>
+          )}
 
           <View style={{ margin: 5 }} />
 
