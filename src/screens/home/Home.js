@@ -18,12 +18,12 @@ class Home extends React.Component {
   }
 
   render() {
-    // const {
-    //   cocktails,
-    //   fetchCocktailsError,
-    //   fetchCocktailsIsLoading,
-    //   fetchCocktailsConnected,
-    // } = this.props;
+    const {
+      cocktails,
+      fetchCocktailsError,
+      fetchCocktailsIsLoading,
+      fetchCocktailsConnected,
+    } = this.props;
     const { inputText } = this.state;
 
     const changeTextHandler = newText => {
