@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Text, ScrollView, ActivityIndicator, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import CustomGradient from '../../components/CustomGradient';
 import { goBack } from '../../navigation/Navigation';
-import { fetchCocktails } from '../../actions/cocktails';
+import { fetchCocktails, cleanCocktailsHandler } from '../../actions/cocktails';
 import { Button, MyTextInput, Card } from '../../components';
 import styles from './styles';
 
@@ -12,6 +12,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       inputText: '',
+      localLoading: false,
     };
   }
 
@@ -21,12 +22,22 @@ class Home extends React.Component {
       fetchCocktailsError,
       fetchCocktailsIsLoading,
       fetchCocktailsConnected,
+      cleanCocktailsConnected,
     } = this.props;
-    const { inputText } = this.state;
+    const { inputText, localLoading } = this.state;
 
     const changeTextHandler = newText => {
-      if (newText.length >= 3) fetchCocktailsConnected(newText);
-      this.setState({ inputText: newText });
+      let fetchCocktailsHandler;
+      this.setState({ inputText: newText, localLoading: true }, () => {
+        clearTimeout(fetchCocktailsHandler);
+        cleanCocktailsConnected();
+        if (newText.length >= 3)
+          fetchCocktailsHandler = setTimeout(() => {
+            fetchCocktailsConnected(newText);
+            this.setState({ localLoading: false });
+          }, 2000);
+        else this.setState({ localLoading: false });
+      });
     };
 
     const cancelButtonHandler = () => {
@@ -34,12 +45,7 @@ class Home extends React.Component {
     };
 
     return (
-      <LinearGradient
-        style={styles.container}
-        colors={['#ff3300', '#ff1ac6']}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 0 }}
-      >
+      <CustomGradient style={styles.container}>
         <View style={styles.searchContainer}>
           {!inputText.length > 0 ? (
             <Button
@@ -55,6 +61,7 @@ class Home extends React.Component {
             containerStyle={styles.TextInput}
             placeholder="Search"
             icon
+            // returnKeyType="search"
           />
 
           {inputText.length > 0 ? (
@@ -62,23 +69,23 @@ class Home extends React.Component {
               onPress={cancelButtonHandler}
               text="Cancel"
               textStyle={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}
-              containerStyle={styles.cancelButton}
+              onEndEditing={styles.cancelButton}
             />
           ) : null}
         </View>
 
         <ScrollView style={styles.scrollViewContainer} contentContainerStyle={styles.center}>
-          {fetchCocktailsIsLoading ? <ActivityIndicator color="black" size="large" /> : null}
-
-          {cocktails && inputText.length >= 3 && cocktails.drinks != null
-            ? cocktails.drinks.map(cocktail => (
-                <Card
-                  cocktailName={cocktail.strDrink}
-                  cocktailImage={cocktail.strDrinkThumb}
-                  key={cocktail.idDrink}
-                />
-              ))
-            : null}
+          {fetchCocktailsIsLoading || localLoading ? (
+            <ActivityIndicator color="black" size="large" />
+          ) : cocktails && cocktails.drinks !== null ? (
+            cocktails.drinks.map(cocktail => (
+              <Card
+                cocktailName={cocktail.strDrink}
+                cocktailImage={cocktail.strDrinkThumb}
+                key={cocktail.idDrink}
+              />
+            ))
+          ) : null}
 
           <View style={{ margin: 5 }} />
 
@@ -86,7 +93,7 @@ class Home extends React.Component {
             <Text style={{ color: 'red' }}>{JSON.stringify(fetchCocktailsError, null, 2)}</Text>
           ) : null}
         </ScrollView>
-      </LinearGradient>
+      </CustomGradient>
     );
   }
 }
@@ -99,6 +106,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCocktailsConnected: name => dispatch(fetchCocktails(name)),
+  cleanCocktailsConnected: () => dispatch(cleanCocktailsHandler()),
 });
 
 export default connect(
