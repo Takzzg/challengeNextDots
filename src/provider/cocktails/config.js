@@ -8,4 +8,8 @@ export default class CocktailsConfig {
   static get random() {
     return `${CocktailsConfig.endpoint}random.php`;
   }
+
+  static byName(name) {
+    return `${CocktailsConfig.endpoint}search.php?s=${name}`;
+  }
 }
