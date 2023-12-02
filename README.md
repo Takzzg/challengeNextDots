@@ -1,4 +1,4 @@
-# challengeNextDots
+# NextDots Technical challenge 
 
 git clone https://github.com/Takzzg/challengeNextDots
 
